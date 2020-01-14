@@ -1,0 +1,4 @@
+module OMSDK_Giphy {
+    header "Headers/OMIDImports.h"
+    export *
+}
