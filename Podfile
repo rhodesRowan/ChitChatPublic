@@ -14,7 +14,6 @@ target 'chitChat' do
   pod 'Firebase/Messaging'
   pod 'Alamofire', '~> 5.0.0-rc.3'
   pod 'Giphy'
-  
   target 'chitChatTests' do
     inherit! :complete
   end
