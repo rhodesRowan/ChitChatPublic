@@ -452,6 +452,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D02311A23CE18FD00EBA23F /* UserServices */ = {
+			isa = PBXGroup;
+			children = (
+				6D00ADBD23C35D2C0049F772 /* UserDetailsManager.swift */,
+				6D00ADBF23C375D40049F772 /* UserQueryManager.swift */,
+			);
+			path = UserServices;
+			sourceTree = "<group>";
+		};
+		6D02311B23CE190D00EBA23F /* AuthServices */ = {
+			isa = PBXGroup;
+			children = (
+				6D54A502239927CE00F26411 /* AuthManager.swift */,
+			);
+			path = AuthServices;
+			sourceTree = "<group>";
+		};
 		6D05D91423C6361B00D60C8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -485,15 +502,15 @@
 		6D48215D2396A46A00599341 /* chitChat */ = {
 			isa = PBXGroup;
 			children = (
-				6D57354D23A8F3B60012C058 /* SlideInMenu */,
-				6D4FCABE239A6B3C00431FF8 /* Services */,
 				6D54A4F42399137500F26411 /* Assets */,
-				6D54A4EF239912F300F26411 /* Settings */,
-				6D54A4EE239912CF00F26411 /* ChatLog */,
-				6D54A4ED239912C900F26411 /* ChatList */,
 				6D54A4EC239912C100F26411 /* Auth */,
+				6D54A4ED239912C900F26411 /* ChatList */,
+				6D54A4EE239912CF00F26411 /* ChatLog */,
 				6D51D2A62397FC68009E1D3C /* Helpers */,
 				6D51D2A42397FB62009E1D3C /* Models */,
+				6D4FCABE239A6B3C00431FF8 /* Networking Services */,
+				6D57354D23A8F3B60012C058 /* SlideInMenu */,
+				6D54A4EF239912F300F26411 /* Settings */,
 				6D48215E2396A46A00599341 /* AppDelegate.swift */,
 				6DF72C8B23B0FB4300B8631E /* chitChatRelease.entitlements */,
 				6D4821602396A46A00599341 /* SceneDelegate.swift */,
@@ -503,15 +520,14 @@
 			path = chitChat;
 			sourceTree = "<group>";
 		};
-		6D4FCABE239A6B3C00431FF8 /* Services */ = {
+		6D4FCABE239A6B3C00431FF8 /* Networking Services */ = {
 			isa = PBXGroup;
 			children = (
+				6D02311B23CE190D00EBA23F /* AuthServices */,
+				6D02311A23CE18FD00EBA23F /* UserServices */,
 				6D57883323C3822700A06986 /* MessagingServices */,
-				6D54A502239927CE00F26411 /* AuthManager.swift */,
-				6D00ADBD23C35D2C0049F772 /* UserDetailsManager.swift */,
-				6D00ADBF23C375D40049F772 /* UserQueryManager.swift */,
 			);
-			path = Services;
+			path = "Networking Services";
 			sourceTree = "<group>";
 		};
 		6D51D2A42397FB62009E1D3C /* Models */ = {
@@ -666,28 +682,28 @@
 		6D57354D23A8F3B60012C058 /* SlideInMenu */ = {
 			isa = PBXGroup;
 			children = (
-				6D57356E23A8F9020012C058 /* Controllers */,
-				6D57356923A8F5E30012C058 /* cells */,
+				6D57356E23A8F9020012C058 /* ViewControllers */,
+				6D57356923A8F5E30012C058 /* Cells */,
 				6D57357023A8FDC50012C058 /* SlideInTransition.swift */,
 			);
 			path = SlideInMenu;
 			sourceTree = "<group>";
 		};
-		6D57356923A8F5E30012C058 /* cells */ = {
+		6D57356923A8F5E30012C058 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				6D57356A23A8F5FD0012C058 /* userImageCell.swift */,
 				6D57356C23A8F7880012C058 /* slidingMenuCell.swift */,
 			);
-			path = cells;
+			path = Cells;
 			sourceTree = "<group>";
 		};
-		6D57356E23A8F9020012C058 /* Controllers */ = {
+		6D57356E23A8F9020012C058 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				6D57356723A8F3DE0012C058 /* MenuTableViewController.swift */,
 			);
-			path = Controllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		6D57883323C3822700A06986 /* MessagingServices */ = {

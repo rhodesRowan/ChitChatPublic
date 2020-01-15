@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if let textResponse = response as? UNTextInputNotificationResponse {
                 UIApplication.shared.applicationIconBadgeNumber = 0
                 let senderID = response.notification.request.content.userInfo["senderID"] as! String
-                let payload: [String: Any] = ["toID": senderID, "fromID": Auth.auth().currentUser!.uid, "text": textResponse.userText, "timestamp": Int(Date().timeIntervalSince1970)]
+                let payload: [String: Any] = ["toID": senderID, "fromID": AuthManager.sharedInstance.getCurrentUser()?.uid, "text": textResponse.userText, "timestamp": Int(Date().timeIntervalSince1970)]
                 MessageManager.sharedInstance.sendMessage(payload: payload) { (success) in
                     if success {
                         print("successfully sent message")
@@ -79,7 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         default:
             break
         }
-        
     }
     
 }

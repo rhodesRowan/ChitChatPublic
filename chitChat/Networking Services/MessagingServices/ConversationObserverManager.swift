@@ -46,6 +46,11 @@ class ConversationObserverManager {
         return ref
     }
     
+    
+    /// Deletes the current thread for the user
+    /// - Parameters:
+    ///   - chatPartnerID: the id of the other user in the thread
+    ///   - completion: a bolean value indicating whether the delete was successful
     public func deleteThreadForUser(chatPartnerID: String, completion: @escaping (_ success: Bool) -> Void) {
         guard let currentUser = AuthManager.sharedInstance.getCurrentUser() else { return }
         self.databaseRef.child("user-messages").child(currentUser.uid).child(chatPartnerID).removeValue { (error, ref) in
@@ -95,46 +100,19 @@ class ConversationObserverManager {
     }
     
     
-    /// listens for when the last message has been seen by the chat partner
-    /// - Parameters:
-    ///   - chatPartner: the id of the other user in the thread
-    ///   - completion: bolean value indicating whether the user has sen the message or not
-    public func listenForChangesInMessageRead(chatPartner: String, completion: @escaping (_ change: Bool) -> Void) {
-        guard let currentUser = AuthManager.sharedInstance.getCurrentUser() else { return }
-        let ref = self.databaseRef.child("user-messages").child(currentUser.uid).child(chatPartner).child("metaData").child("lastMessageSeen")
-        ref.observe(.value) { (snapshot) in
-            guard let lastSeen = snapshot.value as? Bool else { return }
-            completion(lastSeen)
-        }
-    }
     
-    public func listenForChangesInLastMessage(chatPartner: String, completion: @escaping (_ message: BaseMessage) -> Void) {
+    /// Listen for when the last message changes in a user-messages node
+    /// - Parameters:
+    ///   - chatPartner: the partner's id of the chat thread
+    ///   - completion: the new last message and a bolean value indicating whether or not the message has been seen or not.
+    public func listenForChangesInLastMessage(chatPartner: String, completion: @escaping (_ message: BaseMessage, _ lastMessageSeen: Bool) -> Void) {
         guard let currentUser = AuthManager.sharedInstance.getCurrentUser() else { return }
         let ref = self.databaseRef.child("user-messages").child(currentUser.uid).child(chatPartner)
         ref.observe(.value) { [weak self] (snapshot) in
             if let lastMessageDict = snapshot.value as? [String: Any] {
-                self?.synthesisLast(metaData: lastMessageDict, completion: { (lastMessage) in
-                    completion(lastMessage)
+                self?.synthesisLast(metaData: lastMessageDict, completion: { (lastMessage, messageSeen)  in
+                    completion(lastMessage, messageSeen)
                 })
-            }
-        }
-    }
-    
-    /// listen to changes of a particlular user
-    /// - Parameters:
-    ///   - chatPartnerID: the id of the user to be listened to
-    ///   - completion: the user
-    public func listenToUserChanges(chatPartnerID: String, completion: @escaping (_ user: user) -> Void) {
-         firestoreRef.collection("users").document(chatPartnerID).addSnapshotListener { (snapshot, error) in
-            guard let document = snapshot else { return }
-            guard let data = document.data() else { return}
-            guard let name = data["name"] as? String, let email = data["email"] as? String else { return }
-            if let photo = data["photoURL"] as? String {
-                let appUser = user(id: document.documentID, name: name, email: email, photoURL: photo)
-                completion(appUser)
-            } else {
-                let appUser = user(id: document.documentID, name: name, email: email)
-                completion(appUser)
             }
         }
     }
@@ -152,22 +130,22 @@ class ConversationObserverManager {
         }
     }
     
-    fileprivate func synthesisLast(metaData: [String: Any], completion: @escaping (_ lastMessage: BaseMessage) -> Void) {
+    fileprivate func synthesisLast(metaData: [String: Any], completion: @escaping (_ lastMessage: BaseMessage, _ messageSeen: Bool) -> Void) {
         if let metaData = metaData["metaData"] as? [String: Any] {
-            guard let lastMessagePayload = metaData["lastMessage"] as? [String: Any], let fromID = lastMessagePayload["fromID"] as? String, let messageID = metaData["lastMessageID"] as? String, let timestamp = lastMessagePayload["timestamp"] as? Double, let toID = lastMessagePayload["toID"] as? String else { return }
+            guard let lastMessagePayload = metaData["lastMessage"] as? [String: Any], let fromID = lastMessagePayload["fromID"] as? String, let messageID = metaData["lastMessageID"] as? String, let timestamp = lastMessagePayload["timestamp"] as? Double, let toID = lastMessagePayload["toID"] as? String, let messageSeen = metaData["lastMessageSeen"] as? Bool else { return }
             self.fetchChatPartner(fromID: fromID, toID: toID) { (user) in
                 if let text = lastMessagePayload["text"] as? String {
                     let textMessage = TextMessage(toID: toID, fromID: fromID, text: text, date: timestamp, messageID: messageID, type: .textMessageCell)
-                    completion(textMessage)
+                    completion(textMessage, messageSeen)
                 } else if let imageUrl = lastMessagePayload["imageURL"] as? String {
                     let photoMessage = PhotoMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, imageURL: imageUrl, type: .imageMessageCell)
-                    completion(photoMessage)
+                    completion(photoMessage, messageSeen)
                 } else if let gifID = lastMessagePayload["gifID"] as? String {
                     let gifMessage = GifMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, gifID: gifID, type: .gifMessageCell)
-                    completion(gifMessage)
+                    completion(gifMessage, messageSeen)
                 } else if let videoURL = lastMessagePayload["videoURL"] as? String, let thumbnailImage = lastMessagePayload["thumbnailURL"] as? String, let thumbnailAspect = lastMessagePayload["thumbnailAspect"] as? Double {
                     let videoMessage = VideoMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, videoURL: videoURL, thumbnailURL: thumbnailImage, thumbnailAspect: thumbnailAspect,  type: .videoMessageCell)
-                    completion(videoMessage)
+                    completion(videoMessage, messageSeen)
                 }
             }
         }

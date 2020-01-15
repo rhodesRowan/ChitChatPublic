@@ -11,7 +11,6 @@ import UIKit
 extension ChatLogTableViewController {
     
     // MARK:- @IBActions
-    
     @IBAction func pressMediaBtn(_ sender: Any) {
         self.showMediaBtnsContainer()
     }

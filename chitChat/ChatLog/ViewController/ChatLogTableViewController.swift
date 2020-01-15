@@ -61,8 +61,7 @@ class ChatLogTableViewController: UIViewController, UITableViewDelegate {
         print("CHATLOG VC DEINIT")
     }
     
-    // MARK:- Public
-    
+    // MARK:- Private
     fileprivate func setupContainerView() {
         containerView.isHidden = false
         containerView.frame = self.view.frame
@@ -116,6 +115,7 @@ class ChatLogTableViewController: UIViewController, UITableViewDelegate {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(backBtn))
         self.navigationItem.titleView = titleView
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     @objc fileprivate func backBtn() {
@@ -143,8 +143,6 @@ class ChatLogTableViewController: UIViewController, UITableViewDelegate {
         // setup media button
         self.mediaBtn.imageView?.contentMode = .scaleAspectFit
     }
-    
-    
     
     @objc fileprivate func handleKeyboardNotification(notification: NSNotification) {
         let bottomSafeArea = self.view.safeAreaInsets.bottom - 5
