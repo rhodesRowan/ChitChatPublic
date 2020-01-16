@@ -14,11 +14,6 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
-    // MARK:- Properties
-    static let Notification_URL = ""
-    static var DEVICEID = String()
-    static let SERVERKEY = ""
-
     // MARK:- Public
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .white

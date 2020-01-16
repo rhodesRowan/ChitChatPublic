@@ -82,25 +82,6 @@ class ConversationObserverManager {
     
     
     
-    /// listen for changes in the user messages, this can be used for tracking when the last message has changed
-    /// - Parameters:
-    ///   - lastDate: the date of the current last thread
-    ///   - completion: the thread that has changed
-    public func observeUserMessagesChanged(completion: @escaping (_ threads: Thread?) -> Void) -> DatabaseReference {
-        guard let currentUser = AuthManager.sharedInstance.getCurrentUser() else { return databaseRef }
-        let ref = self.databaseRef.child("user-messages").child(currentUser.uid)
-        ref.observe(.childChanged) { [weak self] (snapshot) in
-            if let userThreadsDict = snapshot.value as? [String: Any] {
-                self?.synthesisThread(thread: userThreadsDict) { (thread) in
-                    completion(thread)
-                }
-            }
-        }
-        return ref
-    }
-    
-    
-    
     /// Listen for when the last message changes in a user-messages node
     /// - Parameters:
     ///   - chatPartner: the partner's id of the chat thread
