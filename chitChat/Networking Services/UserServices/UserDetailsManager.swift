@@ -119,7 +119,7 @@ class UserDetailsManager {
        let userDict: [String: Any] = ["email": user.email!, "name": user.displayName!.lowercased()]
        firestoreRef.collection("users").document(user.uid).setData(userDict) { (err) in
            if err != nil {
-               print(err?.localizedDescription ?? "")
+            print(err?.localizedDescription ?? "")
                completion(false)
            } else {
                completion(true)
