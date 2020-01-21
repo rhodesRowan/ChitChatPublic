@@ -30,10 +30,11 @@ class ConversationObserverManager {
         let group = DispatchGroup()
         ref.observeSingleEvent(of: .value) { [weak self] (snapshot) in
             if let threads = snapshot.value as? [String: Any] {
+                guard let self = self else { return }
                 for thread in threads {
                     group.enter()
                     guard let threadValue = thread.value as? [String: Any] else { return }
-                    self?.synthesisThread(thread: threadValue) { (thread) in
+                    self.synthesisThread(thread: threadValue) { (thread) in
                         tempThreadArray[thread.chatPartner.id] = thread
                         group.leave()
                     }
@@ -71,8 +72,9 @@ class ConversationObserverManager {
         guard let currentUser = AuthManager.sharedInstance.getCurrentUser() else { return databaseRef }
         let ref = self.databaseRef.child("user-messages").child(currentUser.uid)
         ref.queryOrdered(byChild: "/metaData/lastMessage/timestamp").queryStarting(atValue: lastDate.timeIntervalSince1970).queryLimited(toLast: 1).observe(.childAdded) { [weak self] (snapshot) in
+            guard let self = self else { return }
             if let userThreadsDict = snapshot.value as? [String: Any] {
-                self?.synthesisThread(thread: userThreadsDict) { (thread) in
+                self.synthesisThread(thread: userThreadsDict) { (thread) in
                     completion(thread)
                 }
             }
@@ -90,8 +92,9 @@ class ConversationObserverManager {
         guard let currentUser = AuthManager.sharedInstance.getCurrentUser() else { return }
         let ref = self.databaseRef.child("user-messages").child(currentUser.uid).child(chatPartner)
         ref.observe(.value) { [weak self] (snapshot) in
+            guard let self = self else { return }
             if let lastMessageDict = snapshot.value as? [String: Any] {
-                self?.synthesisLast(metaData: lastMessageDict, completion: { (lastMessage, messageSeen)  in
+                self.synthesisLast(metaData: lastMessageDict, completion: { (lastMessage, messageSeen)  in
                     completion(lastMessage, messageSeen)
                 })
             }
@@ -113,19 +116,40 @@ class ConversationObserverManager {
     
     fileprivate func synthesisLast(metaData: [String: Any], completion: @escaping (_ lastMessage: BaseMessage, _ messageSeen: Bool) -> Void) {
         if let metaData = metaData["metaData"] as? [String: Any] {
-            guard let lastMessagePayload = metaData["lastMessage"] as? [String: Any], let fromID = lastMessagePayload["fromID"] as? String, let messageID = metaData["lastMessageID"] as? String, let timestamp = lastMessagePayload["timestamp"] as? Double, let toID = lastMessagePayload["toID"] as? String, let messageSeen = metaData["lastMessageSeen"] as? Bool else { return }
+            guard let lastMessagePayload = metaData["lastMessage"] as? [String: Any],      let fromID = lastMessagePayload["fromID"] as? String,
+                  let messageID = metaData["lastMessageID"] as? String,
+                  let timestamp = lastMessagePayload["timestamp"] as? Double,
+                  let toID = lastMessagePayload["toID"] as? String,
+                  let messageSeen = metaData["lastMessageSeen"] as? Bool else { return }
             self.fetchChatPartner(fromID: fromID, toID: toID) { (user) in
                 if let text = lastMessagePayload["text"] as? String {
                     let textMessage = TextMessage(toID: toID, fromID: fromID, text: text, date: timestamp, messageID: messageID, type: .textMessageCell)
                     completion(textMessage, messageSeen)
                 } else if let imageUrl = lastMessagePayload["imageURL"] as? String {
-                    let photoMessage = PhotoMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, imageURL: imageUrl, type: .imageMessageCell)
+                    let photoMessage = PhotoMessage(toID: toID,
+                                                    fromID: fromID,
+                                                    date: timestamp,
+                                                    messageID: messageID,
+                                                    imageURL: imageUrl,
+                                                    type: .imageMessageCell)
                     completion(photoMessage, messageSeen)
                 } else if let gifID = lastMessagePayload["gifID"] as? String {
-                    let gifMessage = GifMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, gifID: gifID, type: .gifMessageCell)
+                    let gifMessage = GifMessage(toID: toID,
+                                                fromID: fromID,
+                                                date: timestamp,
+                                                messageID: messageID,
+                                                gifID: gifID,
+                                                type: .gifMessageCell)
                     completion(gifMessage, messageSeen)
                 } else if let videoURL = lastMessagePayload["videoURL"] as? String, let thumbnailImage = lastMessagePayload["thumbnailURL"] as? String, let thumbnailAspect = lastMessagePayload["thumbnailAspect"] as? Double {
-                    let videoMessage = VideoMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, videoURL: videoURL, thumbnailURL: thumbnailImage, thumbnailAspect: thumbnailAspect,  type: .videoMessageCell)
+                    let videoMessage = VideoMessage(toID: toID,
+                                                    fromID: fromID,
+                                                    date: timestamp,
+                                                    messageID: messageID,
+                                                    videoURL: videoURL,
+                                                    thumbnailURL: thumbnailImage,
+                                                    thumbnailAspect: thumbnailAspect,
+                                                    type: .videoMessageCell)
                     completion(videoMessage, messageSeen)
                 }
             }
@@ -137,20 +161,52 @@ class ConversationObserverManager {
             guard let lastMessagePayload = metaData["lastMessage"] as? [String: Any], let fromID = lastMessagePayload["fromID"] as? String, let messageID = metaData["lastMessageID"] as? String, let messageSeen = metaData["lastMessageSeen"] as? Bool, let timestamp = lastMessagePayload["timestamp"] as? Double, let toID = lastMessagePayload["toID"] as? String else { return }
             self.fetchChatPartner(fromID: fromID, toID: toID) { (user) in
                 if let text = lastMessagePayload["text"] as? String {
-                    let textMessage = TextMessage(toID: toID, fromID: fromID, text: text, date: timestamp, messageID: messageID, type: .textMessageCell)
-                    let thread = Thread(chatPartner: user, lastMessage: textMessage, lastMessageSeen: messageSeen)
+                    let textMessage = TextMessage(toID: toID,
+                                                  fromID: fromID,
+                                                  text: text,
+                                                  date: timestamp,
+                                                  messageID: messageID,
+                                                  type: .textMessageCell)
+                    let thread = Thread(chatPartner: user,
+                                        lastMessage: textMessage,
+                                        lastMessageSeen: messageSeen)
                     completion(thread)
                 } else if let imageUrl = lastMessagePayload["imageURL"] as? String {
-                    let photoMessage = PhotoMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, imageURL: imageUrl, type: .imageMessageCell)
-                    let thread = Thread(chatPartner: user, lastMessage: photoMessage, lastMessageSeen: messageSeen)
+                    let photoMessage = PhotoMessage(toID: toID,
+                                                    fromID: fromID,
+                                                    date: timestamp,
+                                                    messageID: messageID,
+                                                    imageURL: imageUrl,
+                                                    type: .imageMessageCell)
+                    let thread = Thread(chatPartner: user,
+                                        lastMessage: photoMessage,
+                                        lastMessageSeen: messageSeen)
                     completion(thread)
                 } else if let gifID = lastMessagePayload["gifID"] as? String {
-                    let gifMessage = GifMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, gifID: gifID, type: .gifMessageCell)
-                    let thread = Thread(chatPartner: user, lastMessage: gifMessage, lastMessageSeen: messageSeen)
+                    let gifMessage = GifMessage(toID: toID,
+                                                fromID: fromID,
+                                                date: timestamp,
+                                                messageID: messageID,
+                                                gifID: gifID,
+                                                type: .gifMessageCell)
+                    let thread = Thread(chatPartner: user,
+                                        lastMessage: gifMessage,
+                                        lastMessageSeen: messageSeen)
                     completion(thread)
-                } else if let videoURL = lastMessagePayload["videoURL"] as? String, let thumbnailImage = lastMessagePayload["thumbnailURL"] as? String, let thumbnailAspect = lastMessagePayload["thumbnailAspect"] as? Double {
-                    let videoMessage = VideoMessage(toID: toID, fromID: fromID, date: timestamp, messageID: messageID, videoURL: videoURL, thumbnailURL: thumbnailImage, thumbnailAspect: thumbnailAspect,  type: .videoMessageCell)
-                    let thread = Thread(chatPartner: user, lastMessage: videoMessage, lastMessageSeen: messageSeen)
+                } else if let videoURL = lastMessagePayload["videoURL"] as? String,
+                          let thumbnailImage = lastMessagePayload["thumbnailURL"] as? String,
+                          let thumbnailAspect = lastMessagePayload["thumbnailAspect"] as? Double {
+                    let videoMessage = VideoMessage(toID: toID,
+                                                    fromID: fromID,
+                                                    date: timestamp,
+                                                    messageID: messageID,
+                                                    videoURL: videoURL,
+                                                    thumbnailURL: thumbnailImage,
+                                                    thumbnailAspect: thumbnailAspect,
+                                                    type: .videoMessageCell)
+                    let thread = Thread(chatPartner: user,
+                                        lastMessage: videoMessage,
+                                        lastMessageSeen: messageSeen)
                     completion(thread)
                 }
             }

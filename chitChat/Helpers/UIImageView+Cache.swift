@@ -26,11 +26,12 @@ extension UIImageView {
         let url = URL(string: urlString)
         let request = URLRequest(url: url!)
         AF.request(request).response { [weak self] (response) in
+            guard let self = self else { return }
             if let imgData = response.data {
                 DispatchQueue.main.async {
                     if let downloadedImage = UIImage(data: imgData) {
                         imageCache.setObject(downloadedImage, forKey: NSString(string: urlString))
-                        self?.image = downloadedImage
+                        self.image = downloadedImage
                     }
                 }
             }

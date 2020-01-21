@@ -17,19 +17,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         AuthManager.sharedInstance.checkForCurrentUser { [weak self] (userExists) in
+            guard let self = self else { return }
             if userExists {
                 guard let rootNav = storyBoard.instantiateViewController(identifier: "chatNavigationController") as? UINavigationController, let rootVC = storyBoard.instantiateViewController(identifier: "ChatListTableViewController") as? ChatListTableViewController else { return }
                 AuthManager.sharedInstance.setInactivityObservers()
                 rootNav.setViewControllers([rootVC], animated: false)
                 rootVC.loadThreads()
-                self?.window = UIWindow(windowScene: windowScene)
-                self?.window?.rootViewController = rootNav
-                self?.window?.makeKeyAndVisible()
+                self.window = UIWindow(windowScene: windowScene)
+                self.window?.rootViewController = rootNav
+                self.window?.makeKeyAndVisible()
             } else {
                 guard let login = storyBoard.instantiateViewController(identifier: "LoginViewController") as? LoginViewController else { return }
-                self?.window = UIWindow(windowScene: windowScene)
-                self?.window?.rootViewController = login
-                self?.window?.makeKeyAndVisible()
+                self.window = UIWindow(windowScene: windowScene)
+                self.window?.rootViewController = login
+                self.window?.makeKeyAndVisible()
             }
         }
     }

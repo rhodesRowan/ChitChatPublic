@@ -45,14 +45,15 @@ extension ChatLogTableViewController: ChatLogViewModelDelegate {
             self.tableView?.insertRows(at: changes.updates.inserts, with: .none)
             self.tableView?.deleteRows(at: changes.updates.deletes, with: .none)
         }) { [weak self] (success) in
+            guard let self = self else { return }
             if success {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self?.scrollToBottom()
-                    self?.containerView.isHidden = true
-                    self?.setLastMessageRead()
+                    self.scrollToBottom()
+                    self.containerView.isHidden = true
+                    self.setLastMessageRead()
                 }
             }
-            self?.viewModel.isInitialLoad = false
+            self.viewModel.isInitialLoad = false
         }
     }
     

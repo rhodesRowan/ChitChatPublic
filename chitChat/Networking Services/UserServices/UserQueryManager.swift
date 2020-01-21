@@ -86,7 +86,9 @@ class UserQueryManager {
     ///   - completion: the user
     public func fetchUser(userID: String, completion: @escaping (_ user: user?) -> Void) {
         firestoreRef.collection("users").document(userID).getDocument { (snapshot, error) in
-            guard let userData = snapshot?.data(), let name = userData["name"] as? String, let email = userData["email"] as? String else {
+            guard let userData = snapshot?.data(),
+                  let name = userData["name"] as? String,
+                  let email = userData["email"] as? String else {
                 completion(nil)
                 return
             }

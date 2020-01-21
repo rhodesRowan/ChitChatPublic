@@ -70,8 +70,8 @@ class ChatBubbleGifViewCell: ChatBubbleBaseCell {
         GiphyCore.shared.gifByID(gifID) { (response, error) in
             if let media = response?.data {
                 DispatchQueue.main.sync { [weak self] in
-                    self?.gifImageView.setMedia(media)
-                    //self?.gifImageView.heightAnchor.constraint(equalTo: (self?.gifImageView.widthAnchor)!, multiplier: media.aspectRatio).isActive = true
+                    guard let self = self else { return }
+                    self.gifImageView.setMedia(media)
                 }
             }
         }

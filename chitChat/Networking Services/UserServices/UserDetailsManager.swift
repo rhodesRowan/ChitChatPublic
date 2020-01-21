@@ -30,10 +30,11 @@ class UserDetailsManager {
        let changeRequest = current.createProfileChangeRequest()
        changeRequest.photoURL = URL(string: photoUrl)
        changeRequest.commitChanges { [weak self] (err) in
+        guard let self = self else { return }
            if let error = err {
             completion(false, error.localizedDescription)
            } else {
-               self?.updateDatabasePhotoURL(photoURL: photoUrl) { (success) in
+               self.updateDatabasePhotoURL(photoURL: photoUrl) { (success) in
                    if success {
                     completion(true, nil)
                    } else {

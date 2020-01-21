@@ -38,11 +38,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         self.addLoadingContainerView()
         guard let name = nameTxt.text, name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false, let email = emailTxt.text, let password = passwordTxt.text else { return self.presentFailedAlert(alertMessage: "Please fill in all fields") }
         AuthManager.sharedInstance.Register(email: email, password: password, name: name) { [weak self] (success, err) in
-            self?.loadingView.removeFromSuperview()
+            guard let self = self else { return }
+            self.loadingView.removeFromSuperview()
             if success {
-                AuthManager.sharedInstance.transitionToConversations(self!)
+                AuthManager.sharedInstance.transitionToConversations(self)
             } else if err != nil {
-                self?.presentFailedAlert(alertMessage: err!)
+                self.presentFailedAlert(alertMessage: err!)
             }
         }
     }

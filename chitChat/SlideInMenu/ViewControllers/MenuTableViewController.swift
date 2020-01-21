@@ -94,7 +94,8 @@ class MenuTableViewController: UITableViewController, SlideTransitionDelegate {
     fileprivate func presentLogoutAlert() {
         let alert = UIAlertController(title: "Sign Out?", message: "Are you sure you want to sign out?", preferredStyle: .actionSheet)
         let signOutAction = UIAlertAction(title: "Sign Out", style: .default) { [weak self] (action) in
-            self?.logOutUser()
+            guard let self = self else { return }
+            self.logOutUser()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             alert.dismiss(animated: true, completion: nil)
@@ -127,7 +128,8 @@ class MenuTableViewController: UITableViewController, SlideTransitionDelegate {
         } else {
             message = "Would you like to turn on push notifications?"
             action = UIAlertAction(title: "Turn On", style: .default, handler: { [weak self] (action) in
-                self?.enablePushNotifications()
+                guard let self = self else { return }
+                self.enablePushNotifications()
             })
         }
         let alert = UIAlertController(title: "Toggle Push Notifications", message: message, preferredStyle: .actionSheet)

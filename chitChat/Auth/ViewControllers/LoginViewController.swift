@@ -38,13 +38,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         self.addLoadingContainerView()
         guard let email = emailTxt.text, let password = passwordTxt.text else { return }
-        AuthManager.sharedInstance.Login(email: email, password: password) { [weak self] (success, err)  in
-            self?.loadingView.removeFromSuperview()
+        AuthManager.sharedInstance.Login(email: email, password: password) { [weak self]
+            (success, err)  in
+            guard let self = self else { return }
+            self.loadingView.removeFromSuperview()
             if success {
-                AuthManager.sharedInstance.transitionToConversations(self!)
+                AuthManager.sharedInstance.transitionToConversations(self)
             } else if err != nil {
                 let failedAlert = UIAlertController.failedToPerformNetworkRequest(errorMessage: err!)
-                self?.present(failedAlert, animated: true, completion: nil)
+                self.present(failedAlert, animated: true, completion: nil)
             }
         }
     }

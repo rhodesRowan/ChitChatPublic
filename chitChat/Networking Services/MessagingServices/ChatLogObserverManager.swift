@@ -28,11 +28,12 @@ class ChatLogObserverManager {
         let group = DispatchGroup()
         let threadRef = databaseRef.child("user-messages").child(user.uid).child(chatPartnerID).child("messages").queryOrdered(byChild: "timestamp").queryEnding(atValue: firstTimestamp).queryLimited(toLast: 30)
         threadRef.observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            guard let self = self else { return }
             threadRef.removeAllObservers()
             if let messagesDict = snapshot.value as? [String: Any] {
                 for message in messagesDict {
                     group.enter()
-                    self?.fetchMessage(messageID: message.key) { (message) in
+                    self.fetchMessage(messageID: message.key) { (message) in
                         if (message.date != Date(timeIntervalSince1970: firstTimestamp)) {
                             tempMessages.append(message)
                         }
@@ -57,10 +58,11 @@ class ChatLogObserverManager {
         let group = DispatchGroup()
         var messages = [BaseMessage]()
         threadRef.queryOrdered(byChild: "timestamp").queryLimited(toLast: 30).observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            guard let self = self else { return }
             if let messagesArray = snapshot.value as? [String: Any] {
                 for message in messagesArray {
                     group.enter()
-                    self?.fetchMessage(messageID: message.key) { (message) in
+                    self.fetchMessage(messageID: message.key) { (message) in
                         messages.append(message)
                         group.leave()
                     }
@@ -82,7 +84,8 @@ class ChatLogObserverManager {
         guard let user = AuthManager.sharedInstance.getCurrentUser() else { return nil}
         let threadRef = databaseRef.child("user-messages").child(user.uid).child(chatPartnerID).child("messages")
         threadRef.queryOrdered(byChild: "timestamp").queryLimited(toLast: 1).observe(.childAdded) { [weak self] (snapshot) in
-            self?.fetchMessage(messageID: snapshot.key, completion: { (message) in
+            guard let self = self else { return }
+            self.fetchMessage(messageID: snapshot.key, completion: { (message) in
                 completion(message)
             })
         }

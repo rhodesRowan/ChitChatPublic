@@ -120,9 +120,10 @@ class ChatListTableViewController: UIViewController {
     // loads in the initial threads into the threads dictionary using a single event observer
     public func loadThreads() {
         self.initialMessageObserverReference = ConversationObserverManager.sharedInstance.observeInitialUserMessages { [weak self] (threads) in
-            self?.threadsDict = threads
-            let lastDate = self?.orderedThreads.last?.lastMessage.date ?? Date()
-            self?.newThreadAddedObserver(lastDate: lastDate)
+            guard let self = self else { return }
+            self.threadsDict = threads
+            let lastDate = self.orderedThreads.last?.lastMessage.date ?? Date()
+            self.newThreadAddedObserver(lastDate: lastDate)
         }
     }
     
@@ -165,10 +166,11 @@ class ChatListTableViewController: UIViewController {
     // check to make sure a user exists, if they dont, present the login screen
     fileprivate func checkForAuth() {
         AuthManager.sharedInstance.checkForCurrentUser { [weak self] (userExists) in
+            guard let self = self else { return }
             if !userExists {
                 let login = LoginViewController()
                 login.modalPresentationStyle = .fullScreen
-                self?.present(login, animated: true, completion: nil)
+                self.present(login, animated: true, completion: nil)
             } else {
                 return
             }
@@ -185,8 +187,9 @@ class ChatListTableViewController: UIViewController {
     // adds a snapshot listener that only listens for new threads, if the message already exists, it is not added to the dictionary.
     fileprivate func newThreadAddedObserver(lastDate: Date) {
         self.newMessageObserver = ConversationObserverManager.sharedInstance.observeUserMessagesAdded(lastDate: lastDate) { [weak self] (thread) in
+            guard let self = self else { return }
                 guard let thread = thread else { return }
-                self?.threadsDict[thread.chatPartner.id] = thread
+                self.threadsDict[thread.chatPartner.id] = thread
         }
     }
     

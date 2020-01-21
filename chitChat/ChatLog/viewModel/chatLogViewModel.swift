@@ -57,9 +57,10 @@ class ChatLogViewModel: NSObject {
     public func observeInitialMessages(User: user) {
         self.user = User
         self.initialChatThreadObserver = ChatLogObserverManager.sharedInstance.observeInitialMessagesForThread(chatPartnerID: User.id, completion: { [weak self] (messages) in
-            self?.textMessages = messages
-            self?.attemptToAssembleGroupedMessages(updateType: .initialLoad)
-            self?.observeNewMesages(User: User)
+            guard let self = self else { return }
+            self.textMessages = messages
+            self.attemptToAssembleGroupedMessages(updateType: .initialLoad)
+            self.observeNewMesages(User: User)
         })
     }
     

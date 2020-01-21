@@ -43,9 +43,10 @@ class Thread {
     
     fileprivate func listenForLastMessageChanges() {
         ConversationObserverManager.sharedInstance.listenForChangesInLastMessage(chatPartner: self.chatPartner.id) { [weak self] (message, lastMessageSeen)  in
-            self?.lastMessage = message
-            self?.showUnread = (self?.checkIfThreadNeedsToDisplayUnread(lastMessageSeen: lastMessageSeen, chatPartnerID: (self?.chatPartner.id)!))!
-            self?.delegate?.reloadCell(messageID: ((self?.lastMessage.messageID)!))
+            guard let self = self else { return }
+            self.lastMessage = message
+            self.showUnread = (self.checkIfThreadNeedsToDisplayUnread(lastMessageSeen: lastMessageSeen, chatPartnerID: (self.chatPartner.id)!))!
+            self.delegate?.reloadCell(messageID: ((self.lastMessage.messageID)!))
         }
     }
     

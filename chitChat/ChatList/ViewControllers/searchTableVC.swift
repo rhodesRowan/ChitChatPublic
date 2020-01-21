@@ -50,8 +50,9 @@ class searchTableVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func loadUsers() {
         UserQueryManager.sharedInstance.fetchUsersForSearching { [weak self] (usersArray) -> (Void) in
-            self?.usersArray = usersArray
-            self?.tableView.reloadData()
+            guard let self = self else { return }
+            self.usersArray = usersArray
+            self.tableView.reloadData()
         }
     }
 

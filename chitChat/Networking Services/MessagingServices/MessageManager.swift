@@ -87,7 +87,8 @@ class MessageManager {
                 print(err.localizedDescription)
                 completion(nil, nil, nil)
             } else {
-                videoPath.downloadURL(completion: { (url, err) in
+                videoPath.downloadURL(completion: { [weak self] (url, err) in
+                    guard let self = self else { return }
                     if let err = error {
                         print(err.localizedDescription)
                         completion(nil, nil, nil)

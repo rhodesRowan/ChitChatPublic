@@ -36,11 +36,12 @@ class settingsVC: UIViewController {
     @IBAction func changeName(_ sender: Any) {
         guard let name = nameTxt.text, nameTxt.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false else { return }
        UserDetailsManager.sharedInstance.changeUserName(name: name) { [weak self] (success, err) in
+        guard let self = self else { return }
         if err != nil {
             let failedAlert = UIAlertController.failedToPerformNetworkRequest(errorMessage: err!)
-            self?.present(failedAlert, animated: true, completion: nil)
+            self.present(failedAlert, animated: true, completion: nil)
         } else if success {
-            self?.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
        }
     }
@@ -71,17 +72,19 @@ class settingsVC: UIViewController {
     //MARK:- Public
     public func sendImageToStorage(data: Data) {
         UserDetailsManager.sharedInstance.uploadProfileImage(imgData: data) { [weak self] (url, err) in
+            guard let self = self else { return }
             if err != nil {
                 let failedAlert = UIAlertController.failedToPerformNetworkRequest(errorMessage: err!)
-                self?.present(failedAlert, animated: true, completion: nil)
+                self.present(failedAlert, animated: true, completion: nil)
             } else if let downloadURL = url {
                 UserDetailsManager.sharedInstance.changePhoto(photoUrl: downloadURL) { [weak self] (success, err) in
+                    guard let self = self else { return }
                     if err != nil {
                         let failedAlert = UIAlertController.failedToPerformNetworkRequest(errorMessage: err!)
-                        self?.present(failedAlert, animated: true, completion: nil)
+                        self.present(failedAlert, animated: true, completion: nil)
                     } else if success {
-                        self?.profileImg.loadImageUsingCacheWithURLString(urlString: downloadURL)
-                        self?.profileIconImg.loadImageUsingCacheWithURLString(urlString: downloadURL)
+                        self.profileImg.loadImageUsingCacheWithURLString(urlString: downloadURL)
+                        self.profileIconImg.loadImageUsingCacheWithURLString(urlString: downloadURL)
                     }
                 }
             }
