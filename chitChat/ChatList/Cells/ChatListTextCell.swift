@@ -34,7 +34,7 @@ class ChatListTextCell: ChatListBaseCell {
     //MARK:- Methods
     
     override func prepareForReuse() {
-        self.profileIconImg.image = UIImage(named: "user")
+        self.profileIconImageView.image = UIImage(named: "user")
         self.messageLbl.text = ""
         self.profileNameLbl.text = ""
         self.timeLbl.text = ""
@@ -43,7 +43,7 @@ class ChatListTextCell: ChatListBaseCell {
     override func setupFromUser(chatPartner: user) {
         self.profileNameLbl.text = chatPartner.name.capitalized
         guard let url = chatPartner.photoURL else { return }
-        self.profileIconImg.loadImageUsingCacheWithURLString(urlString: url)
+        self.profileIconImageView.loadImageUsingCacheWithURLString(urlString: url)
     }
     
 }

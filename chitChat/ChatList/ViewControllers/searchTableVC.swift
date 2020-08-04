@@ -85,9 +85,9 @@ class searchTableVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             item = usersArray[indexPath.row]
         }
         if let photoURL = item.photoURL {
-            cell.profileIconImg.loadImageUsingCacheWithURLString(urlString: photoURL)
+            cell.profileIconImageView.loadImageUsingCacheWithURLString(urlString: photoURL)
         } else {
-            cell.profileIconImg.image = UIImage(named: "user")
+            cell.profileIconImageView.image = UIImage(named: "user")
         }
         
         cell.nameLbl.text = item.name.capitalized

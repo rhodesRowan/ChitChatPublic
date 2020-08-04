@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-public class AuthTxtField: UITextField {
+public class AuthTextField: UITextField {
     
    // MARK:- Properties
     @IBInspectable public var accessoryImage: UIImage = UIImage() {

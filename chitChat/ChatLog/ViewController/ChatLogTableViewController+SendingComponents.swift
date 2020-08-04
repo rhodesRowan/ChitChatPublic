@@ -14,17 +14,17 @@ extension ChatLogTableViewController {
     // MARK:- Public
     // setup the payload and send the message
     @objc public func handleSend() {
-        guard let text = self.userInputTxt.text else { return }
+        guard let text = self.userInputTextField.text else { return }
         guard let currentUser = AuthManager.sharedInstance.getCurrentUser() else { return }
-        self.userInputTxt.text = ""
-        self.sendBtn.isEnabled = false
+        self.userInputTextField.text = ""
+        self.sendButton.isEnabled = false
         let payload: [String: Any] = ["toID": AppUser!.id, "fromID": currentUser.uid, "text": text, "timestamp": Int(Date().timeIntervalSince1970)]
         MessageManager.sharedInstance.sendMessage(payload: payload) { (success) in
             if !success {
                 print("there was an error sending the message")
             } else {
                 self.scrollToBottom()
-                self.userInputTxt.text = nil
+                self.userInputTextField.text = nil
                 self.playSendSound()
             }
         }

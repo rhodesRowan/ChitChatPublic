@@ -12,9 +12,9 @@ import Firebase
 class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     // MARK:- Properties
-    @IBOutlet weak var nameTxt: AuthTxtField!
-    @IBOutlet weak var emailTxt: AuthTxtField!
-    @IBOutlet weak var passwordTxt: AuthTxtField!
+    @IBOutlet weak var nameTextField: AuthTextField!
+    @IBOutlet weak var emailTextField: AuthTextField!
+    @IBOutlet weak var passwordTextField: AuthTextField!
     var loadingView: AuthLoadingContainerView!
     
     // MARK:- Lifecycle
@@ -33,10 +33,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func registerBtnPressed(_ sender: AnyObject) {
+    @IBAction func registerButtonPressed(_ sender: AnyObject) {
         self.view.endEditing(true)
         self.addLoadingContainerView()
-        guard let name = nameTxt.text, name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false, let email = emailTxt.text, let password = passwordTxt.text else { return self.presentFailedAlert(alertMessage: "Please fill in all fields") }
+        guard let name = nameTextField.text, name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false, let email = emailTextField.text, let password = passwordTextField.text else { return self.presentFailedAlert(alertMessage: "Please fill in all fields") }
         AuthManager.sharedInstance.Register(email: email, password: password, name: name) { [weak self] (success, err) in
             guard let self = self else { return }
             self.loadingView.removeFromSuperview()

@@ -11,17 +11,17 @@ import UIKit
 extension ChatLogTableViewController {
     
     // MARK:- @IBActions
-    @IBAction func pressMediaBtn(_ sender: Any) {
-        self.showMediaBtnsContainer()
+    @IBAction func pressMediaButton(_ sender: Any) {
+        self.showMediaButtonsContainer()
     }
     
     @IBAction func closeMediaPressed(_ sender: Any) {
-        self.showMediaBtnsContainer()
+        self.showMediaButtonsContainer()
     }
     
     // MARK:- Private
     // animate the media container over the user input bar or back depending on whether it is currently visible or not
-    fileprivate func showMediaBtnsContainer() {
+    fileprivate func showMediaButtonsContainer() {
         if mediaContainerShowing {
             self.mediaContainerShowing = false
             self.mediaContainerWidthConstraint.constant = 0

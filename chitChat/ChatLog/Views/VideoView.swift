@@ -18,17 +18,17 @@ class VideoView: UIView {
     var isLoop: Bool = false
     var circleLayer: CAShapeLayer?
     var shapeLayer: CAShapeLayer?
-    lazy var playBtn: UIButton = {
-        var playBtn = UIButton()
-        playBtn.translatesAutoresizingMaskIntoConstraints = false
-        playBtn.setImage(UIImage(named: "play"), for: .normal)
-        playBtn.addTarget(self, action: #selector(play), for: .touchUpInside)
-        return playBtn
+    lazy var playButton: UIButton = {
+        var playButton = UIButton()
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.setImage(UIImage(named: "play"), for: .normal)
+        playButton.addTarget(self, action: #selector(play), for: .touchUpInside)
+        return playButton
     }()
-    var thumbnailImg: UIImageView = {
-       var thumbnailImg = UIImageView()
-       thumbnailImg.translatesAutoresizingMaskIntoConstraints = false
-       return thumbnailImg
+    var thumbnailImageView: UIImageView = {
+       var thumbnailImageView = UIImageView()
+       thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
+       return thumbnailImageView
     }()
     
     // MARK:- Lifecycle
@@ -40,13 +40,13 @@ class VideoView: UIView {
     public func configure(url: String, imageURL: String) {
         if let videoURL = URL(string: url) {
             self.setupThumbnailImage(imageURL: imageURL)
-            self.setupPlayBtn()
+            self.setupPlayButton()
             player = AVPlayer(url: videoURL)
             playerLayer = AVPlayerLayer(player: player)
             playerLayer?.videoGravity = AVLayerVideoGravity.resize
             if let playerLayer = self.playerLayer {
                 self.layer.addSublayer(playerLayer)
-                self.bringSubviewToFront(self.playBtn)
+                self.bringSubviewToFront(self.playButton)
             }
             self.setupPlayerObservers()
         }
@@ -60,26 +60,26 @@ class VideoView: UIView {
     }
     
     fileprivate func setupThumbnailImage(imageURL: String) {
-        self.addSubview(thumbnailImg)
-        thumbnailImg.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        thumbnailImg.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        thumbnailImg.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        thumbnailImg.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        thumbnailImg.loadImageUsingCacheWithURLString(urlString: imageURL)
+        self.addSubview(thumbnailImageView)
+        thumbnailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        thumbnailImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        thumbnailImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        thumbnailImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        thumbnailImageView.loadImageUsingCacheWithURLString(urlString: imageURL)
     }
     
-    fileprivate func setupPlayBtn() {
-        self.addSubview(playBtn)
-        playBtn.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        playBtn.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        playBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        playBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
+    fileprivate func setupPlayButton() {
+        self.addSubview(playButton)
+        playButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        playButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        playButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        playButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
     }
     
     fileprivate func setupLoadingIndicator() {
         shapeLayer = CAShapeLayer()
-        let center = thumbnailImg.center
+        let center = thumbnailImageView.center
         let circularPath = UIBezierPath(arcCenter: .zero, radius: 10, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer?.path = circularPath.cgPath
         shapeLayer?.strokeColor = ThemeManager.shared.greenColor.withAlphaComponent(0.3).cgColor
@@ -119,7 +119,7 @@ class VideoView: UIView {
     }
     
     @objc fileprivate func play() {
-        self.playBtn.alpha = 0.0
+        self.playButton.alpha = 0.0
         self.setupLoadingIndicator()
         player?.play()
     }
@@ -127,8 +127,8 @@ class VideoView: UIView {
     @objc fileprivate func endOfVideoReached(_ notification: Notification) {
         player?.pause()
         player?.seek(to: .zero)
-        self.playBtn.alpha = 1.0
-        self.bringSubviewToFront(playBtn)
+        self.playButton.alpha = 1.0
+        self.bringSubviewToFront(playButton)
     }
     
     @objc fileprivate func playerItemDidReadyToPlay(_ notification: Notification) {

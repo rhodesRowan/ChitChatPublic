@@ -41,7 +41,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="AFF-yZ-SdS">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w0b-A1-L5k" customClass="AuthTxtField" customModule="chitChat" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w0b-A1-L5k" customClass="AuthTextField" customModule="chitChat" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="0.0" width="374" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="d2q-vI-D3E"/>
@@ -59,7 +59,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yFe-Lw-pFC">
                                                         <rect key="frame" x="20" y="72" width="374" height="78"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c5P-Ng-fB4" customClass="AuthTxtField" customModule="chitChat" customModuleProvider="target">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c5P-Ng-fB4" customClass="AuthTextField" customModule="chitChat" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="sVG-0c-ISy"/>
@@ -148,8 +148,8 @@
                         <viewLayoutGuide key="safeArea" id="ltX-ED-xUB"/>
                     </view>
                     <connections>
-                        <outlet property="emailTxt" destination="w0b-A1-L5k" id="8wC-yU-BRr"/>
-                        <outlet property="passwordTxt" destination="c5P-Ng-fB4" id="Eup-1e-xDh"/>
+                        <outlet property="emailTextField" destination="w0b-A1-L5k" id="8wC-yU-BRr"/>
+                        <outlet property="passwordTextField" destination="c5P-Ng-fB4" id="Eup-1e-xDh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cte-Wb-ciw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -173,7 +173,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="PRc-Gk-NaV">
                                 <rect key="frame" x="20" y="132" width="374" height="285"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BtH-2b-57b" customClass="AuthTxtField" customModule="chitChat" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BtH-2b-57b" customClass="AuthTextField" customModule="chitChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="uKn-Y0-Yzm"/>
@@ -187,7 +187,7 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="accessoryImage" value="person" catalog="system"/>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K8G-Uf-tnK" customClass="AuthTxtField" customModule="chitChat" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K8G-Uf-tnK" customClass="AuthTextField" customModule="chitChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="80" width="374" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="7au-ai-Zxv"/>
@@ -201,7 +201,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KeK-xj-toX" customClass="AuthTxtField" customModule="chitChat" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KeK-xj-toX" customClass="AuthTextField" customModule="chitChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="160" width="374" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Eba-9p-PDz"/>
@@ -226,7 +226,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="registerBtnPressed:" destination="zft-kp-56H" eventType="touchUpInside" id="Uko-FA-qaS"/>
+                                            <action selector="registerButtonPressed:" destination="zft-kp-56H" eventType="touchUpInside" id="Uko-FA-qaS"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -260,9 +260,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="IFP-Kv-HJy"/>
                     <connections>
-                        <outlet property="emailTxt" destination="K8G-Uf-tnK" id="W0r-f1-yaF"/>
-                        <outlet property="nameTxt" destination="BtH-2b-57b" id="rEE-Gi-iOy"/>
-                        <outlet property="passwordTxt" destination="KeK-xj-toX" id="2ax-Wr-OOW"/>
+                        <outlet property="emailTextField" destination="K8G-Uf-tnK" id="W0r-f1-yaF"/>
+                        <outlet property="nameTextField" destination="BtH-2b-57b" id="rEE-Gi-iOy"/>
+                        <outlet property="passwordTextField" destination="KeK-xj-toX" id="2ax-Wr-OOW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZkX-X3-3WZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -297,7 +297,7 @@
                                 </constraints>
                                 <state key="normal" image="media"/>
                                 <connections>
-                                    <action selector="pressMediaBtn:" destination="4jc-Zf-flX" eventType="touchUpInside" id="tXf-sM-2zl"/>
+                                    <action selector="pressMediaButton:" destination="4jc-Zf-flX" eventType="touchUpInside" id="tXf-sM-2zl"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJ9-ew-n0g">
@@ -325,7 +325,7 @@
                                                 <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="photo" catalog="system"/>
                                                 <connections>
-                                                    <action selector="galleryBtnPressed:" destination="4jc-Zf-flX" eventType="touchUpInside" id="nbJ-pp-utw"/>
+                                                    <action selector="galleryButtonPressed:" destination="4jc-Zf-flX" eventType="touchUpInside" id="nbJ-pp-utw"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGL-eI-WaC">
@@ -336,7 +336,7 @@
                                                 <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="camera" catalog="system"/>
                                                 <connections>
-                                                    <action selector="cameraBtnPressed:" destination="4jc-Zf-flX" eventType="touchUpInside" id="nmj-bo-Z2f"/>
+                                                    <action selector="cameraButtonPressed:" destination="4jc-Zf-flX" eventType="touchUpInside" id="nmj-bo-Z2f"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ey-Aj-cbI">
@@ -347,7 +347,7 @@
                                                 <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="smiley" catalog="system"/>
                                                 <connections>
-                                                    <action selector="gifBtnPressed:" destination="4jc-Zf-flX" eventType="touchUpInside" id="3Nb-ac-d37"/>
+                                                    <action selector="gifButtonPressed:" destination="4jc-Zf-flX" eventType="touchUpInside" id="3Nb-ac-d37"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -382,15 +382,15 @@
                     </view>
                     <connections>
                         <outlet property="bottomConstraint" destination="4yh-by-Qb4" id="eFb-ug-BG5"/>
-                        <outlet property="mediaBtn" destination="S2u-OP-f75" id="8sJ-kd-paE"/>
+                        <outlet property="mediaButton" destination="S2u-OP-f75" id="8sJ-kd-paE"/>
                         <outlet property="mediaContainerWidthConstraint" destination="nje-jj-JPH" id="Ii6-YQ-Cba"/>
                         <outlet property="tableView" destination="aVO-U9-7YI" id="Ll0-4i-woF"/>
-                        <outlet property="userInputTxt" destination="PBX-it-Rvm" id="CIp-V1-7k4"/>
+                        <outlet property="userInputTextField" destination="PBX-it-Rvm" id="CIp-V1-7k4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMg-wF-a1V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4700" y="678"/>
+            <point key="canvasLocation" x="4699" y="682"/>
         </scene>
         <!--Settings-->
         <scene sceneID="2oe-Vo-XdI">
@@ -446,7 +446,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5F-jh-Aw9" customClass="titleLabel" customModule="chitChat" customModuleProvider="target">
-                                <rect key="frame" x="102" y="64" width="210.5" height="40"/>
+                                <rect key="frame" x="118" y="64" width="178.5" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="mj1-zx-rEa"/>
                                 </constraints>
@@ -482,7 +482,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Save" id="G0C-x8-KLN"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="nameTxt" destination="kTo-Ty-umu" id="hrB-Wz-UTy"/>
+                        <outlet property="nameTextField" destination="kTo-Ty-umu" id="hrB-Wz-UTy"/>
                         <outlet property="profileIconImg" destination="aLB-Ow-l4W" id="nke-8T-SWr"/>
                         <outlet property="profileImg" destination="BzS-Vu-F8J" id="NnV-BU-El1"/>
                         <outlet property="saveBtn" destination="cbw-37-EAm" id="OAg-nG-um1"/>
@@ -658,7 +658,7 @@
                     <navigationItem key="navigationItem" id="1Zg-X7-fik"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="menuBtn" destination="6Tk-JR-roy" id="lQQ-jM-WLr"/>
+                        <outlet property="menuButton" destination="6Tk-JR-roy" id="lQQ-jM-WLr"/>
                         <outlet property="searchBar" destination="apN-Dz-UBm" id="FiG-x6-jAZ"/>
                         <outlet property="tableView" destination="pPZ-f2-3bl" id="VsT-tb-c4R"/>
                     </connections>

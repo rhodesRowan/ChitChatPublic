@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if let error = err {
                 print(error.localizedDescription)
             } else {
+                print(result?.token)
                 UserDetailsManager.sharedInstance.setDeviceToken(token: result!.token)
             }
         })

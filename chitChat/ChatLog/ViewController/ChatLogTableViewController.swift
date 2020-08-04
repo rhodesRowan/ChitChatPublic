@@ -17,15 +17,15 @@ class ChatLogTableViewController: UIViewController, UITableViewDelegate {
     
     // MARK:- @IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var userInputTxt: UITextField!
+    @IBOutlet weak var userInputTextField: UITextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var mediaBtn: UIButton!
+    @IBOutlet weak var mediaButton: UIButton!
     @IBOutlet weak var mediaContainerWidthConstraint: NSLayoutConstraint!
     
     // MARK:- Properties
     var mediaContainerShowing = false
     var containerView = LoadingContainerView()
-    var sendBtn = UIButton()
+    var sendButton = UIButton()
     var viewModel = ChatLogViewModel()
     let giphy = GiphyViewController()
     var sendSoundEffect: AVAudioPlayer?
@@ -112,36 +112,36 @@ class ChatLogTableViewController: UIViewController, UITableViewDelegate {
         titleView.addSubview(lastOnline)
         lastOnline.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         lastOnline.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(backBtn))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(backButtonPressed))
         self.navigationItem.titleView = titleView
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
-    @objc fileprivate func backBtn() {
+    @objc fileprivate func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
     }
     
     fileprivate func setupUserInputBar() {
-        self.userInputTxt.delegate = self
-        self.userInputTxt.layer.masksToBounds = true
-        self.userInputTxt.layer.cornerRadius = 8
-        self.userInputTxt.layer.borderWidth = 1
-        self.userInputTxt.layer.borderColor = UIColor.tertiarySystemBackground.resolvedColor(with: self.traitCollection).cgColor
-        self.userInputTxt.backgroundColor = ThemeManager.shared.secondaryBGColor
+        self.userInputTextField.delegate = self
+        self.userInputTextField.layer.masksToBounds = true
+        self.userInputTextField.layer.cornerRadius = 8
+        self.userInputTextField.layer.borderWidth = 1
+        self.userInputTextField.layer.borderColor = UIColor.tertiarySystemBackground.resolvedColor(with: self.traitCollection).cgColor
+        self.userInputTextField.backgroundColor = ThemeManager.shared.secondaryBGColor
         // create send button
-        self.sendBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        self.sendBtn.setImage(UIImage(named: "send"), for: .normal)
-        self.sendBtn.imageView?.contentMode = .scaleAspectFit
-        self.sendBtn.imageEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
-        self.userInputTxt.rightView = sendBtn
-        self.userInputTxt.rightViewMode = .always
+        self.sendButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        self.sendButton.setImage(UIImage(named: "send"), for: .normal)
+        self.sendButton.imageView?.contentMode = .scaleAspectFit
+        self.sendButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        self.userInputTextField.rightView = sendButton
+        self.userInputTextField.rightViewMode = .always
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
-        self.sendBtn.isEnabled = false
+        self.sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        self.sendButton.isEnabled = false
         // setup media button
-        self.mediaBtn.imageView?.contentMode = .scaleAspectFit
+        self.mediaButton.imageView?.contentMode = .scaleAspectFit
     }
     
     @objc fileprivate func handleKeyboardNotification(notification: NSNotification) {
@@ -183,8 +183,8 @@ class ChatLogTableViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc fileprivate func tableViewTapped() {
-        if self.userInputTxt.isEditing {
-            self.userInputTxt.endEditing(true)
+        if self.userInputTextField.isEditing {
+            self.userInputTextField.endEditing(true)
         }
     }
     

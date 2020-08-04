@@ -59,12 +59,12 @@ extension settingsVC {
     }
     
     fileprivate func setupNameTxt(_ currentUser: User) {
-        self.nameTxt.placeholder = currentUser.displayName
-        self.nameTxt.textColor = .darkGray
-        self.nameTxt.backgroundColor = UIColor.secondarySystemFill
-        self.nameTxt.layer.cornerRadius = 10
-        self.nameTxt.layer.masksToBounds = true
-        self.nameTxt.delegate = self
+        self.nameTextField.placeholder = currentUser.displayName
+        self.nameTextField.textColor = .darkGray
+        self.nameTextField.backgroundColor = UIColor.secondarySystemFill
+        self.nameTextField.layer.cornerRadius = 10
+        self.nameTextField.layer.masksToBounds = true
+        self.nameTextField.delegate = self
     }
     
     fileprivate func setupProfileIcon() {

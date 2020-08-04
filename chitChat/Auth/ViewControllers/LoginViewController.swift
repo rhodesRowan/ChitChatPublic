@@ -11,33 +11,29 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK:- Properties
-    @IBOutlet weak var emailTxt: AuthTxtField!
-    @IBOutlet weak var passwordTxt: AuthTxtField!
+    @IBOutlet weak var emailTextField: AuthTextField!
+    @IBOutlet weak var passwordTextField: AuthTextField!
     var loadingView: AuthLoadingContainerView!
     
     // MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.addKeyboardObservers()
         self.hideKeyboardWhenTappedAround()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
-        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
     }
     
     // MARK:- Deinit
     deinit {
         print("DEINIT LOGIN")
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
     }
     
     // MARK:- @IBActions
     @IBAction func loginButtonClicked(_ sender: AnyObject) {
         self.view.endEditing(true)
         self.addLoadingContainerView()
-        guard let email = emailTxt.text, let password = passwordTxt.text else { return }
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
         AuthManager.sharedInstance.Login(email: email, password: password) { [weak self]
             (success, err)  in
             guard let self = self else { return }

@@ -12,7 +12,7 @@ extension ChatLogTableViewController: ChatLogViewModelDelegate {
     
     // MARK:- ChatLogViewModel Delegate methods
     func cellSelected() {
-        self.userInputTxt.endEditing(true)
+        self.userInputTextField.endEditing(true)
     }
     
     // apply the changes to the table based upon what type of change occured

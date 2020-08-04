@@ -13,7 +13,7 @@ import GiphyCoreSDK
 extension ChatLogTableViewController: GiphyDelegate {
     
     // MARK:- @IBActions
-    @IBAction func gifBtnPressed(_ sender: Any) {
+    @IBAction func gifButtonPressed(_ sender: Any) {
         if self.traitCollection.userInterfaceStyle == .dark {
             giphy.theme = .dark
         } else {

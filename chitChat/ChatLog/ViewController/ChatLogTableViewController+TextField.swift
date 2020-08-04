@@ -13,9 +13,9 @@ extension ChatLogTableViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            self.sendBtn.isEnabled = false
+            self.sendButton.isEnabled = false
         } else {
-            self.sendBtn.isEnabled = true
+            self.sendButton.isEnabled = true
         }
         return true
     }

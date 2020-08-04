@@ -48,3 +48,8 @@ exports.sendPushNotification = functions.database.ref('/messages/{messageID}').o
     }))
   })
 });
+
+exports.loghehllo = functions.https.onRequest((req, res) => {
+  // ...
+  console.log("hello");
+});

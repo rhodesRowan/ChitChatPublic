@@ -16,16 +16,16 @@ class ChatListBaseCell: UITableViewCell {
     
     // MARK:- Properties
     var user: user?
-    var profileIconImg: UIImageView = {
-       var image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.masksToBounds = true
-        image.layer.cornerRadius = 30
-        image.layer.borderColor = ThemeManager.shared.greenColor.cgColor
-        image.layer.borderWidth = 2.0
-        image.image = UIImage(named: "user")
-        image.contentMode = .scaleAspectFill
-        return image
+    var profileIconImageView: UIImageView = {
+       var imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 30
+        imageView.layer.borderColor = ThemeManager.shared.greenColor.cgColor
+        imageView.layer.borderWidth = 2.0
+        imageView.image = UIImage(named: "user")
+        imageView.contentMode = .scaleAspectFill
+        return imageView
     }()
     
     var showUnread: Bool? {
@@ -89,7 +89,7 @@ class ChatListBaseCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.addSubview(profileIconImg)
+        self.addSubview(profileIconImageView)
         self.addSubview(profileNameLbl)
         self.addSubview(timeLbl)
         self.addSubview(messageLbl)
@@ -97,19 +97,19 @@ class ChatListBaseCell: UITableViewCell {
         backgroundColor = .clear
         
         // profile img constraints
-        profileIconImg.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        profileIconImg.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-        profileIconImg.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        profileIconImg.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        profileIconImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        profileIconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        profileIconImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        profileIconImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         // time lbl
         timeLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-        timeLbl.topAnchor.constraint(equalTo: profileIconImg.topAnchor, constant: 6).isActive = true
+        timeLbl.topAnchor.constraint(equalTo: profileIconImageView.topAnchor, constant: 6).isActive = true
         
         
         // profile name constraints
-        profileNameLbl.topAnchor.constraint(equalTo: profileIconImg.topAnchor, constant: 3).isActive = true
-        profileNameLbl.leadingAnchor.constraint(equalTo: profileIconImg.trailingAnchor, constant: 5).isActive = true
+        profileNameLbl.topAnchor.constraint(equalTo: profileIconImageView.topAnchor, constant: 3).isActive = true
+        profileNameLbl.leadingAnchor.constraint(equalTo: profileIconImageView.trailingAnchor, constant: 5).isActive = true
         profileNameLbl.trailingAnchor.constraint(equalTo: timeLbl.leadingAnchor, constant: 5).isActive = true
         
         // unread counter
@@ -131,7 +131,7 @@ class ChatListBaseCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        self.profileIconImg.image = UIImage(named: "user")
+        self.profileIconImageView.image = UIImage(named: "user")
         self.messageLbl.text = ""
         self.messageLbl.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         self.messageLbl.textColor = ThemeManager.shared.subTitleColor
@@ -144,6 +144,6 @@ class ChatListBaseCell: UITableViewCell {
      func setupFromUser(chatPartner: user) {
         self.profileNameLbl.text = chatPartner.name.capitalized
         guard let url = chatPartner.photoURL else { return }
-        self.profileIconImg.loadImageUsingCacheWithURLString(urlString: url)
+        self.profileIconImageView.loadImageUsingCacheWithURLString(urlString: url)
     }
 }

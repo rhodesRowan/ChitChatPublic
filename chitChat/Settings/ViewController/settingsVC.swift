@@ -14,7 +14,7 @@ class settingsVC: UIViewController {
     
     //MARK:- @IBOutlets
     @IBOutlet weak var profileImg: UIImageView!
-    @IBOutlet weak var nameTxt: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var settingsContainerView: UIView!
     @IBOutlet weak var titleLbl: titleLabel!
     @IBOutlet weak var profileIconImg: profileCircularImage!
@@ -24,17 +24,16 @@ class settingsVC: UIViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.configureSubviews()
         self.setupKeyboardObservers()
         self.hideKeyboardWhenTappedAround()
-        self.nameTxt.delegate = self
+        self.nameTextField.delegate = self
     }
     
     //MARK:- @IBActions
        
     @IBAction func changeName(_ sender: Any) {
-        guard let name = nameTxt.text, nameTxt.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false else { return }
+        guard let name = nameTextField.text, nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false else { return }
        UserDetailsManager.sharedInstance.changeUserName(name: name) { [weak self] (success, err) in
         guard let self = self else { return }
         if err != nil {

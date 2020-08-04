@@ -12,39 +12,39 @@ var userImageCellID = "userImageCellID"
 class userImageCell: UITableViewCell {
 
     // MARK:- Properties
-    var profileImg: UIImageView = {
-       var imgView = UIImageView()
-       imgView.translatesAutoresizingMaskIntoConstraints = false
-        imgView.layer.masksToBounds = true
-        imgView.layer.cornerRadius = 40
-        imgView.contentMode = .scaleAspectFill
-        return imgView
+    var profileImageView: UIImageView = {
+       var imageView = UIImageView()
+       imageView.translatesAutoresizingMaskIntoConstraints = false
+       imageView.layer.masksToBounds = true
+       imageView.layer.cornerRadius = 40
+       imageView.contentMode = .scaleAspectFill
+       return imageView
     }()
     
-    var nameLbl: UILabel = {
+    var nameLabel: UILabel = {
        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
-        label.sizeToFit()
-        label.textColor = ThemeManager.shared.titleColor
-        return label
+       label.translatesAutoresizingMaskIntoConstraints = false
+       label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+       label.sizeToFit()
+       label.textColor = ThemeManager.shared.titleColor
+       return label
     }()
     
     // MARK:- Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.addSubview(profileImg)
-        self.addSubview(nameLbl)
+        self.addSubview(profileImageView)
+        self.addSubview(nameLabel)
         backgroundColor = .clear
         // profile image constraints
-        profileImg.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        profileImg.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
-        profileImg.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        profileImg.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        profileImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        profileImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
         
         // name label constraints
-        nameLbl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        nameLbl.topAnchor.constraint(equalTo: profileImg.bottomAnchor, constant: 8).isActive = true
+        nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8).isActive = true
     }
     
     required init?(coder: NSCoder) {

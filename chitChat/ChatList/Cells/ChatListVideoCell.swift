@@ -38,11 +38,11 @@ class ChatListVideoCell: ChatListBaseCell {
             self.messageLbl.text = "You sent a video"
         }
         guard let url = chatPartner.photoURL else { return }
-        self.profileIconImg.loadImageUsingCacheWithURLString(urlString: url)
+        self.profileIconImageView.loadImageUsingCacheWithURLString(urlString: url)
     }
     
     override func prepareForReuse() {
-        self.profileIconImg.image = UIImage(named: "user")
+        self.profileIconImageView.image = UIImage(named: "user")
         self.messageLbl.text = ""
         self.profileNameLbl.text = ""
         self.timeLbl.text = ""

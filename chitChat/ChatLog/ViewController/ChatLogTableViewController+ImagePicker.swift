@@ -11,7 +11,7 @@ import UIKit
 extension ChatLogTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK:- @IBActions
-    @IBAction func cameraBtnPressed(_ sender: Any) {
+    @IBAction func cameraButtonPressed(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
@@ -19,7 +19,7 @@ extension ChatLogTableViewController: UIImagePickerControllerDelegate, UINavigat
         self.present(imagePickerController, animated: true, completion: nil)
     }
     
-    @IBAction func galleryBtnPressed(_ sender: Any) {
+    @IBAction func galleryButtonPressed(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true

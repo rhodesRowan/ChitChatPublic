@@ -20,7 +20,7 @@ class ChatListTableViewController: UIViewController {
     
     // MARK:- @IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var menuBtn: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK:- Properties
@@ -67,10 +67,9 @@ class ChatListTableViewController: UIViewController {
     // MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.configureTableView()
         self.loadThreads()
-        self.setupSettingsBtn()
+        self.setupSettingsButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -193,9 +192,9 @@ class ChatListTableViewController: UIViewController {
         }
     }
     
-    fileprivate func setupSettingsBtn() {
-        self.menuBtn.imageView?.contentMode = .scaleAspectFit
-        self.menuBtn.imageView?.tintColor = ThemeManager.shared.greenColor
+    fileprivate func setupSettingsButton() {
+        self.menuButton.imageView?.contentMode = .scaleAspectFit
+        self.menuButton.imageView?.tintColor = ThemeManager.shared.greenColor
         self.searchBar.searchTextField.backgroundColor = UIColor(named: "secondaryBackgroundColor")
         self.searchBar.searchTextField.textColor = ThemeManager.shared.titleColor
         self.searchBar.delegate = self

@@ -63,12 +63,12 @@ class MenuTableViewController: UITableViewController, SlideTransitionDelegate {
             if indexPath.row == 0 {
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: userImageCellID, for: indexPath) as? userImageCell ?? userImageCell()
                 if let photo = user.photoURL?.absoluteString {
-                    cell.profileImg.loadImageUsingCacheWithURLString(urlString: photo)
+                    cell.profileImageView.loadImageUsingCacheWithURLString(urlString: photo)
                 } else {
-                    cell.profileImg.image = UIImage(named: "user")
+                    cell.profileImageView.image = UIImage(named: "user")
                 }
                 cell.selectionStyle = .none
-                cell.nameLbl.text = user.displayName?.capitalized
+                cell.nameLabel.text = user.displayName?.capitalized
                 return cell
             } else if indexPath.row == 1 {
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: slidingMenuID, for: indexPath) as? slidingMenuCell ?? slidingMenuCell()
