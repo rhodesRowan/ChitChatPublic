@@ -1,4 +1,5 @@
-![alt text](https://github.com/rhodesRowan/ChitChatPublic/blob/master/screenshots/IMG_6136.png)
+![](https://github.com/rhodesRowan/ChitChatPublic/blob/master/screenshots/IMG_6136.png =130x)
+![](https://github.com/rhodesRowan/ChitChatPublic/blob/master/screenshots/IMG_6113.png =130x)
 
 
 ChitChat Firebase Messaging App project, features include:
