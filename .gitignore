@@ -115,4 +115,6 @@ Pods/
 #Directory 
 /codesigndoc_exports
 
+FinalCertificates.p12
+
 GoogleService-Info.plist
