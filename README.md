@@ -1,5 +1,5 @@
-![](https://github.com/rhodesRowan/ChitChatPublic/blob/master/screenshots/IMG_6136.png =130x)
-![](https://github.com/rhodesRowan/ChitChatPublic/blob/master/screenshots/IMG_6113.png =130x)
+<img src="https://github.com/rhodesRowan/ChitChatPublic/blob/master/screenshots/IMG_6136.png " alt="" width="200"/>
+<img src="https://github.com/rhodesRowan/ChitChatPublic/blob/master/screenshots/IMG_6113.png" alt="" width="200"/>
 
 
 ChitChat Firebase Messaging App project, features include:
