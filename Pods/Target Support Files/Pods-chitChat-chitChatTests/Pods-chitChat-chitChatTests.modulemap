@@ -1,6 +1,0 @@
-framework module Pods_chitChat_chitChatTests {
-  umbrella header "Pods-chitChat-chitChatTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

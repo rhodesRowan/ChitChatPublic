@@ -46,7 +46,7 @@ class ChatLogTableViewController: UIViewController, UITableViewDelegate {
         self.setupUserInputBar()
         self.setupNavBar()
         self.setupContainerView()
-        GiphyUISDK.configure(apiKey: "khBpWKDM51jTT2sMrTR5Peyzp3mE3Ah8")
+        GiphyUISDK.configure(apiKey: "fill api token here ....")
         giphy.delegate = self
     }
     
