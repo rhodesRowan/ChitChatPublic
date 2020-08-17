@@ -113,8 +113,11 @@ Backup[ ]of[ ]*.numbers/
 Pods/
 
 #Directory 
-/codesigndoc_exports
+/codesigndo
+c_exports
 
 FinalCertificates.p12
 
 GoogleService-Info.plist
+
+Functions/
